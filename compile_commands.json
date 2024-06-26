@@ -1,0 +1,16 @@
+[
+    {
+     "directory": "/nfs/homes/rgramati/Documents/42spe/libasm",
+     "arguments": [
+      "gcc",
+      "-I",
+      "./include",
+      "src/tester/libasm_tester.c",
+      "-c",
+      "-o",
+      ".objs/tester/libasm_tester.o"
+     ],
+     "file": "src/tester/libasm_tester.c"
+    }
+   ]
+   
