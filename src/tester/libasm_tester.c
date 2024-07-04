@@ -6,7 +6,7 @@
 /*   By: rgramati <rgramati@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 17:59:00 by rgramati          #+#    #+#             */
-/*   Updated: 2024/06/25 16:33:42 by rgramati         ###   ########.fr       */
+/*   Updated: 2024/06/30 17:45:06 by rgramati         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,14 @@ void	*ft_calloc(size_t nb, size_t size);
 
 size_t	ft_strlcat(char *dst, char *src, size_t n);
 
+char	*ft_strchr(const char *str, int c);
+
+char	*ft_strrchr(const char *str, int c);
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t n);
+
+size_t	strlcpy(char *dst, const char *src, size_t n);
+
 #include <string.h>
 
 size_t strlcat(dst, src, siz)
@@ -166,6 +174,20 @@ size_t strlcat(dst, src, siz)
 	return(dlen + (s - src));	/* count does not include NUL */
 }
 
+
+#include <stdlib.h>
+#include <sys/mman.h>
+
+void	*multiplicator(int n)
+{
+	char* buffer = (char *) mmap(0, (size_t) 12, PROT_EXEC | PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+
+	ft_memcpy(buffer, (void *)"\x48\x89\xf8\xb9", 4);
+	buffer[4] = n;
+	ft_memcpy(buffer + 5, (void *)"\x00\x00\x00\x48\xf7\xe9\xc3", 7);
+	return ((void *)buffer);
+}
+
 int main(
 	__attribute__((unused)) int argc,
 	__attribute__((unused)) char **argv,
@@ -183,55 +205,18 @@ int main(
 		fflush(stdout);
 		ft_read(STDIN_FILENO, buf, 128);
 		buf[0] &= -33;
+		printf(RESET);
 		if (buf[0] != 'Y')
 			exit(EXIT_FAILURE);
 	}
-
-	char	test[1024] = {0};
-
-	int res;
-
-	printf("REAL STRLCAT\n\n");
-	ft_bzero(&test, 16);
-	res = strlcat(test, "bonjour", 5);
-	printf("strlcat = %d\nstring is [%s]\n\n", res, test);
-
-	res = strlcat(test, "", 10);
-	printf("strlcat = %d\nstring is [%s]\n\n", res, test);
-
-	ft_bzero(&test, 16);
-	res = strlcat(test, "bonjour", 8);
-	printf("strlcat = %d\nstring is [%s]\n\n", res, test);
-
-	ft_bzero(&test, 16);
-	res = strlcat(test, "bonjour", 8);
-	printf("strlcat = %d\nstring is [%s]\n\n", res, test);
-
-	res = strlcat(test, "bonjour", 12);
-	printf("strlcat = %d\nstring is [%s]\n\n", res, test);
-
-
-
-	printf("MY STRLCAT\n\n");
-	ft_bzero(&test, 16);
-	test[4] = '+';
-	res = ft_strlcat(test, "bonjour", 5);
-	printf("strlcat = %d\nstring is [%s]\n\n", res, test);
-
-	res = ft_strlcat(test, "", 10);
-	printf("strlcat = %d\nstring is [%s]\n\n", res, test);
-
-	ft_bzero(&test, 16);
-	res = ft_strlcat(test, "bonjour", 8);
-	printf("strlcat = %d\nstring is [%s]\n\n", res, test);
-
-	ft_bzero(&test, 16);
-	res = ft_strlcat(test, "bonjour", 8);
-	printf("strlcat = %d\nstring is [%s]\n\n", res, test);
-
-	res = ft_strlcat(test, "bonjour", 12);
-	printf("strlcat = %d\nstring is [%s]\n\n", res, test);
 	// la_check_char_fcts(&tester, &err);
-	
+
+	void	*test = multiplicator(67);
+	for (int i = 0; i < 10; i++)
+	{
+		int		res = ((int(*)(int))test)(i);
+		printf("resultat = %d\n", res);
+	}
+
 }
 

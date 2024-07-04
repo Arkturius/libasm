@@ -6,7 +6,7 @@
 #    By: rgramati <rgramati@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/24 14:17:35 by rgramati          #+#    #+#              #
-#    Updated: 2024/06/25 13:41:12 by rgramati         ###   ########.fr        #
+#    Updated: 2024/06/30 17:19:22 by rgramati         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS		:=	ft_strlen.s		\
 				ft_read.s		\
 				ft_strdup.s		\
 				ft_atoi.s		\
+				ft_codegen.s	\
 				char/ft_isalnum.s	\
 				char/ft_isalpha.s	\
 				char/ft_iscntrl.s	\
